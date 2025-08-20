@@ -145,22 +145,6 @@ The application expects the following API endpoints from your AWS Lambda/API Gat
 | PUT | `/books` | Create or update a book |
 | DELETE | `/books/{id}` | Delete a specific book |
 
-### Expected Response Format
-
-```json
-{
-  "data": [
-    {
-      "id": 1234,
-      "title": "Sample Book",
-      "author": "John Doe",
-      "price": 29.99,
-      "description": "A great book about..."
-    }
-  ]
-}
-
-
 ## Key Components
 
 ### BookCard Component
@@ -185,7 +169,7 @@ Navigation header with home link and add book button.
 
 Ensure environment variables are properly configured on your chosen platform.
 
-
+## Troubleshooting
 
 ### Common Issues
 

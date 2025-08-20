@@ -27,7 +27,7 @@ function AddPage() {
       const newBook: IBook = {
         ...book,
         [name]:
-          name === "price" ? parseFloat(value) : value,
+          name === "price" ? parseFloat(value) || 0 : value.trim(),
       };
       setBook(newBook);
     }
@@ -114,6 +114,8 @@ function AddPage() {
             id="price"
             name="price"
             step="0.01"
+            min="0"
+            max="9999.99"
             value={book.price}
             onChange={handleChange}
             placeholder="Enter Book Price"

@@ -13,9 +13,12 @@ export const getBooks = async () => {
       const data = await res.json();
       return { data, status };
     });
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch books: ${response.status}`);
+    }
     return response;
   } catch (error) {
-    console.log("Error: ", error);
+    console.error("Error fetching books: ", error);
     throw new Error("Failed to fetch Books.");
   }
 };
@@ -29,14 +32,17 @@ export const getBook = async (id: number) => {
       const data = await res.json();
       return { data, status };
     });
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch book: ${response.status}`);
+    }
     return response;
   } catch (error) {
-    console.log("Error: ", error);
+    console.error("Error fetching book: ", error);
     throw new Error("Failed to fetch Book.");
   }
 };
 
-export const  putBook = async (data: IBook) => {
+export const putBook = async (data: IBook) => {
   try {
     const response = await fetch(
       `${process.env.AWS_API_URL}/books`,

@@ -1,4 +1,4 @@
-# Book Library - Full-Stack CRUD Application
+# Readup- Full-Stack CRUD Application
 
 ![Book Library](flow.png)
 

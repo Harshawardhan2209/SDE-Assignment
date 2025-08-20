@@ -104,7 +104,7 @@ function BookPage({ params }: { params: { id: number } }) {
                 value={book.title}
                 onChange={handleChange}
                 placeholder="Enter Book Title"
-                className="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-text-color"
+                className="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -124,7 +124,7 @@ function BookPage({ params }: { params: { id: number } }) {
                 value={book.author}
                 onChange={handleChange}
                 placeholder="Enter Author's Name"
-                className="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-text-color"
+                className="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -145,7 +145,7 @@ function BookPage({ params }: { params: { id: number } }) {
                 value={book.price}
                 onChange={handleChange}
                 placeholder="Enter Book Price"
-                className="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-text-color"
+                className="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -164,14 +164,14 @@ function BookPage({ params }: { params: { id: number } }) {
                 value={book.description}
                 onChange={handleChange}
                 placeholder="Enter Book Description"
-                className="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-text-color"
+                className="w-full p-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows={4}
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full py-3 bg-btn-color text-white rounded hover:bg-text-hover transition duration-200"
+              className="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200"
             >
               Edit Book
             </button>

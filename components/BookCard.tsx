@@ -10,10 +10,10 @@ function BookCard({ book }: { book: IBook }) {
       <p className="text-lg text-gray-600">
         by {book.author}
       </p>
-      <div className="mt-2 text-xl font-bold">
-        {book.price}
+      <div className="mt-2 text-xl font-bold text-green-600">
+        ${book.price}
       </div>
-      <button className="mt-4 py-2 px-4 bg-btn-color text-white rounded hover:bg-text-hover transition duration-200">
+      <button className="mt-4 py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200">
         <Link href={`/${book.id}`}>View Book</Link>
       </button>
     </div>

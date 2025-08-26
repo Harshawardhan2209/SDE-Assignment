@@ -75,7 +75,7 @@ export function Navbar() {
             {/* Right (desktop) */}
             <div className="hidden lg:flex items-center gap-4">
               <Link
-                href="https://github.com/Harshawardhan2209/readup-v1"
+                href="https://github.com/Harshawardhan2209/SDE-Assignment"
                 target="_blank"
                 className="text-muted-foreground hover:text-foreground"
               >

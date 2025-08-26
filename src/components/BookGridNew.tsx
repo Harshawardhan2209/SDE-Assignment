@@ -8,20 +8,21 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { BookOpen, ImageOff, Loader2, Pencil, Trash2 } from "lucide-react";
-import { deleteBookAction } from "@/lib/actions/deleteBookAction";
 import { formatCurrency } from "@/lib/utils/format";
 
 interface BookGridProps {
   books: IBook[];
   loading?: boolean;
   onEdit?: (book: IBook) => void;
+  onDelete?: (id: number) => Promise<void>;
 }
 
-function BookCard({ book, onEdit, onDelete }: { book: IBook; onEdit?: (b: IBook) => void; onDelete: (id: number) => Promise<void>; }) {
+function BookCard({ book, onEdit, onDelete }: { book: IBook; onEdit?: (b: IBook) => void; onDelete?: (id: number) => Promise<void>; }) {
   const [imgError, setImgError] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   const handleDelete = useCallback(async () => {
+    if (!onDelete) return;
     setDeleting(true);
     try {
       await onDelete(book.id);
@@ -65,27 +66,25 @@ function BookCard({ book, onEdit, onDelete }: { book: IBook; onEdit?: (b: IBook)
           >
             <Pencil className="h-4 w-4 mr-1" /> Edit
           </Button>
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={handleDelete}
-            aria-label={`Delete ${book.title}`}
-            disabled={deleting}
-          >
-            {deleting ? <Loader2 className="h-4 w-4 mr-1 animate-spin" /> : <Trash2 className="h-4 w-4 mr-1" />}
-            Delete
-          </Button>
+          {onDelete && (
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={handleDelete}
+              aria-label={`Delete ${book.title}`}
+              disabled={deleting}
+            >
+              {deleting ? <Loader2 className="h-4 w-4 mr-1 animate-spin" /> : <Trash2 className="h-4 w-4 mr-1" />}
+              Delete
+            </Button>
+          )}
         </div>
       </CardFooter>
     </Card>
   );
 }
 
-export function BookGridNew({ books, loading, onEdit }: BookGridProps) {
-  const handleDelete = async (id: number) => {
-    await deleteBookAction(id);
-  };
-
+export function BookGridNew({ books, loading, onEdit, onDelete }: BookGridProps) {
   if (loading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6">
@@ -145,7 +144,7 @@ export function BookGridNew({ books, loading, onEdit }: BookGridProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: Math.min(idx * 0.04, 0.4) }}
         >
-          <BookCard book={book} onEdit={onEdit} onDelete={handleDelete} />
+          <BookCard book={book} onEdit={onEdit} onDelete={onDelete} />
         </motion.div>
       ))}
     </motion.div>

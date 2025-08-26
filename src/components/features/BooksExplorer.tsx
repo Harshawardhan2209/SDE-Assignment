@@ -10,12 +10,70 @@ interface BooksExplorerProps {
 	books: IBook[];
 }
 
-export function BooksExplorer({ books }: BooksExplorerProps) {
+export function BooksExplorer({ books: initialBooks }: BooksExplorerProps) {
 	const [query, setQuery] = useState('');
 	const [filters, setFilters] = useState<FilterOptions>({});
-  const router = useRouter();
+	const [books, setBooks] = useState<IBook[]>(initialBooks);
+	const [isRefreshing, setIsRefreshing] = useState(false);
+	const router = useRouter();
+
+	// Update local state when props change (e.g., on page refresh)
+	useEffect(() => {
+		setBooks(initialBooks);
+	}, [initialBooks]);
 
 	const normalizedQuery = useMemo(() => query.trim().toLowerCase(), [query]);
+
+	// Optimistic delete with revalidation
+	const handleDeleteBook = async (id: number) => {
+		// Optimistic update - immediately remove from UI
+		const originalBooks = books;
+		setBooks(prevBooks => prevBooks.filter(book => book.id !== id));
+
+		try {
+			// Call the delete action
+			const { deleteBookAction } = await import('@/lib/actions/deleteBookAction');
+			const result = await deleteBookAction(id);
+
+			if (!result.success) {
+				// Rollback on failure
+				setBooks(originalBooks);
+				throw new Error(result.error || 'Delete failed');
+			}
+
+			// Revalidate data from server to ensure consistency
+			await revalidateBooks();
+		} catch (error) {
+			console.error('Delete failed:', error);
+			// Rollback optimistic update
+			setBooks(originalBooks);
+			throw error;
+		}
+	};
+
+	// Revalidate books from server
+	const revalidateBooks = async () => {
+		try {
+			setIsRefreshing(true);
+			// Force a fresh fetch from the server
+			const response = await fetch('/api/books', {
+				method: 'GET',
+				cache: 'no-store',
+				headers: {
+					'Cache-Control': 'no-cache',
+				},
+			});
+			
+			if (response.ok) {
+				const freshBooks = await response.json();
+				setBooks(freshBooks.data || []);
+			}
+		} catch (error) {
+			console.error('Failed to revalidate books:', error);
+		} finally {
+			setIsRefreshing(false);
+		}
+	};
 
 	const filteredBooks = useMemo(() => {
 		let result = books;
@@ -82,11 +140,14 @@ export function BooksExplorer({ books }: BooksExplorerProps) {
 				onFilter={setFilters}
 				totalResults={filteredBooks.length}
 			/>
-			<BookGridNew books={filteredBooks} onEdit={(b) => router.push(`/${b.id}`)} />
+			<BookGridNew 
+				books={filteredBooks} 
+				loading={isRefreshing}
+				onEdit={(b) => router.push(`/${b.id}`)}
+				onDelete={handleDeleteBook}
+			/>
 		</div>
 	);
 }
 
 export default BooksExplorer;
-
-

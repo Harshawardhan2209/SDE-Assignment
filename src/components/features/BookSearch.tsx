@@ -18,9 +18,9 @@ export interface BookSearchProps {
 export interface FilterOptions {
   genre?: string;
   priceRange?: [number, number];
-  rating?: number;
-  sortBy?: 'title' | 'author' | 'price' | 'rating' | 'date';
+  sortBy?: 'title' | 'author' | 'price' | 'date' | 'rating';
   sortOrder?: 'asc' | 'desc';
+  rating?: number;
 }
 
 const GENRES = [
@@ -131,7 +131,7 @@ export function BookSearch({ onSearch, onFilter, totalResults }: BookSearchProps
             id="filters-panel"
           >
             <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 {/* Genre Filter */}
                 <Select
                   label="Genre"
@@ -180,36 +180,39 @@ export function BookSearch({ onSearch, onFilter, totalResults }: BookSearchProps
 
                 {/* Rating Filter */}
                 <Select
-                  label="Minimum Rating"
+                  label="Min Rating"
                   value={filters.rating || ''}
-                  onChange={(e) => handleFilterChange('rating', Number(e.target.value) || undefined)}
+                  onChange={(e) => handleFilterChange('rating', e.target.value ? Number(e.target.value) : undefined)}
                 >
                   <option value="">Any Rating</option>
-                  <option value="4">4+ Stars</option>
-                  <option value="3">3+ Stars</option>
-                  <option value="2">2+ Stars</option>
                   <option value="1">1+ Stars</option>
+                  <option value="2">2+ Stars</option>
+                  <option value="3">3+ Stars</option>
+                  <option value="4">4+ Stars</option>
+                  <option value="5">5 Stars</option>
                 </Select>
 
                 {/* Sort Options */}
                 <Select
                   label="Sort By"
-                  value={`${filters.sortBy || 'title'}-${filters.sortOrder || 'asc'}`}
-                  onChange={(e) => {
-                    const [sortBy, sortOrder] = e.target.value.split('-');
-                    handleFilterChange('sortBy', sortBy as any);
-                    handleFilterChange('sortOrder', sortOrder as any);
-                  }}
+                  value={filters.sortBy || 'title'}
+                  onChange={(e) => handleFilterChange('sortBy', e.target.value)}
                 >
-                  <option value="title-asc">Title (A-Z)</option>
-                  <option value="title-desc">Title (Z-A)</option>
-                  <option value="author-asc">Author (A-Z)</option>
-                  <option value="author-desc">Author (Z-A)</option>
-                  <option value="price-asc">Price (Low to High)</option>
-                  <option value="price-desc">Price (High to Low)</option>
-                  <option value="rating-desc">Rating (High to Low)</option>
-                  <option value="date-desc">Newest First</option>
-                  <option value="date-asc">Oldest First</option>
+                  <option value="title">Title</option>
+                  <option value="author">Author</option>
+                  <option value="price">Price</option>
+                  <option value="date">Date</option>
+                  <option value="rating">Rating</option>
+                </Select>
+
+                {/* Sort Order */}
+                <Select
+                  label="Sort Order"
+                  value={filters.sortOrder || 'asc'}
+                  onChange={(e) => handleFilterChange('sortOrder', e.target.value)}
+                >
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
                 </Select>
               </div>
 

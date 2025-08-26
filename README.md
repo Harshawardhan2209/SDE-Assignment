@@ -1,19 +1,19 @@
 # Readup- Full-Stack CRUD Application
 
-![Book Library](flow.png)
+![Book Library]
 
 A modern, full-stack Book Library application built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **AWS services** (DynamoDB, Lambda, API Gateway). This application demonstrates enterprise-level CRUD operations with a serverless architecture.
 
 ## Features
 
-- ** Complete Book Management**: Create, read, update, and delete books
-- ** Modern UI**: Clean, responsive design with Tailwind CSS
-- ** Server-Side Rendering**: Built with Next.js 14 App Router
-- ** Serverless Architecture**: AWS Lambda functions with API Gateway
-- ** NoSQL Database**: DynamoDB for scalable data storage
-- ** Type Safety**: Full TypeScript implementation
-- ** Responsive Design**: Mobile-first approach
-- ** SEO Optimized**: Server-side rendering for better search visibility
+- Complete Book Management: Create, read, update, and delete books
+-  Modern UI**: Clean, responsive design with Tailwind CSS
+- Server-Side Rendering: Built with Next.js 14 App Router
+- Serverless Architecture: AWS Lambda functions with API Gateway
+- NoSQL Database: DynamoDB for scalable data storage
+- Type Safety: Full TypeScript implementation
+- Responsive Design: Mobile-first approach
+- SEO Optimized : Server-side rendering for better search visibility
 
 ##  Tech Stack
 
@@ -134,17 +134,6 @@ npm run start    # Start production server
 npm run lint     # Run ESLint for code quality
 ```
 
-## API Endpoints
-
-The application expects the following API endpoints from your AWS Lambda/API Gateway setup:
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/books` | Retrieve all books |
-| GET | `/books/{id}` | Retrieve a specific book |
-| PUT | `/books` | Create or update a book |
-| DELETE | `/books/{id}` | Delete a specific book |
-
 ## Key Components
 
 ### BookCard Component
@@ -194,22 +183,13 @@ Ensure environment variables are properly configured on your chosen platform.
 4. Push to branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
-## 📝 License
+##  License
 
 This project is open source and available under the [MIT License](./LICENCE).
 
-## 🙋‍♂️ Support
+## Support
 
 If you have any questions or need help with setup, please:
 1. Check the troubleshooting section
 2. Review the AWS setup guide
 3. Open an issue on GitHub
-
-## 🎯 Roadmap
-
-- [ ] Add search functionality
-- [ ] Implement book categories
-- [ ] Add image upload for book covers
-- [ ] User authentication system
-- [ ] Book rating and reviews
-- [ ] Advanced filtering options

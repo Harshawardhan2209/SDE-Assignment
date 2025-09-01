@@ -1,88 +1,106 @@
-# Readup- Full-Stack CRUD Application
+# ReadUp — Serverless Book Library (Next.js 14 + AWS)
 
-![Application Flow](./flow.jpg)
+[![CI](https://img.shields.io/badge/build-passing-brightgreen)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](#)
+[![Next.js](https://img.shields.io/badge/Next.js-14-000000)](#)
+[![AWS](https://img.shields.io/badge/Backend-AWS%20Serverless-orange)](#)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)](#)
 
-A modern, full-stack Book Library application built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **AWS services** (DynamoDB, Lambda, API Gateway). This application demonstrates enterprise-level CRUD operations with a serverless architecture.
+A production-ready, full-stack book management app with a serverless backend.  
+Frontend: **Next.js 14 (App Router), TypeScript, Tailwind CSS**  
+Backend: **AWS Lambda, API Gateway, DynamoDB, S3**, plus **Cloudinary** for image delivery.
+
+---
+
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Environment Variables](#environment-variables)
+  - [Run Locally](#run-locally)
+- [AWS Infrastructure](#aws-infrastructure)
+- [Scripts](#scripts)
+- [Key Modules](#key-modules)
+- [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
 
 ## Features
+- CRUD for books (create, read, update, delete)
+- Responsive UI with Tailwind CSS
+- SSR/SSG via Next.js App Router
+- Serverless API via Lambda + API Gateway
+- Scalable NoSQL with DynamoDB
+- Asset storage on S3; optimized delivery via Cloudinary
+- End-to-end TypeScript
 
-- Complete Book Management: Create, read, update, and delete books
--  Modern UI**: Clean, responsive design with Tailwind CSS
-- Server-Side Rendering: Built with Next.js 14 App Router
-- Serverless Architecture: AWS Lambda functions with API Gateway
-- NoSQL Database: DynamoDB for scalable data storage
-- Type Safety: Full TypeScript implementation
-- Responsive Design: Mobile-first approach
-- SEO Optimized : Server-side rendering for better search visibility
+---
 
-##  Tech Stack
+## Tech Stack
 
-### Frontend
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Hooks** - State management
+**Frontend**
+- Next.js 14 (App Router)
+- TypeScript (strict)
+- Tailwind CSS
+- React Hooks
 
-### Backend & Cloud
-- **AWS Lambda** - Serverless compute functions  
-- **AWS API Gateway** - RESTful API management  
-- **AWS DynamoDB** - NoSQL database  
-- **AWS S3** - Object storage for images/files  
-- **Cloudinary** - Image hosting, optimization & CDN delivery  
+**Backend & Cloud**
+- AWS Lambda (serverless functions)
+- AWS API Gateway (REST)
+- AWS DynamoDB (NoSQL)
+- AWS S3 (object storage)
+- Cloudinary (image CDN/optimization)
 
+**Tooling**
+- ESLint
+- PostCSS
+- Geist Fonts
 
-### Development Tools
-- **ESLint** - Code linting
-- **PostCSS** - CSS processing
-- **Geist Fonts** - Modern typography
+---
 
-## 📁 Project Structure
-
+## Project Structure
 ```
-book-library-next-dynamo-main/
-├── app/                    # Next.js 14 App Router
-│   ├── [id]/              # Dynamic route for book details
-│   │   └── page.tsx       # Edit/Delete book page
-│   ├── add/               # Add new book route
-│   │   └── page.tsx       # Add book form
-│   ├── fonts/             # Custom font files
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout component
-│   └── page.tsx           # Home page (book list)
-├── actions/               # Server actions and API calls
-│   ├── actions.ts         # Server-side action wrappers
-│   └── data.ts            # AWS API integration functions
-├── components/            # Reusable UI components
-│   ├── BookCard.tsx       # Individual book display card
-│   └── Header.tsx         # Navigation header
-├── types.ts               # TypeScript type definitions
-├── tailwind.config.ts     # Tailwind CSS configuration
-├── next.config.mjs        # Next.js configuration
-└── package.json           # Dependencies and scripts
+readup/
+├── app/                    # Next.js routes & layouts
+│   ├── [id]/page.tsx       # Book details / edit
+│   ├── add/page.tsx        # Add book
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx            # Book list (home)
+├── actions/                # Server actions & API wrappers
+│   ├── actions.ts
+│   └── data.ts
+├── components/             # Reusable UI
+│   ├── BookCard.tsx
+│   └── Header.tsx
+├── types.ts                # Shared types
+├── tailwind.config.ts
+├── next.config.mjs
+└── package.json
 ```
+
+---
 
 ## Getting Started
 
 ### Prerequisites
+- Node.js **18+**
+- npm or yarn
+- AWS account with permissions for **Lambda, API Gateway, DynamoDB, S3**
+- (Optional) AWS CLI configured
 
-- **Node.js** (v18 or later)
-- **npm** or **yarn**
-- **AWS Account** with appropriate permissions
-- **AWS CLI** configured (optional, for advanced setup)
-
-### 1. Clone the Repository
-
+### Setup
 ```bash
-git clone //
-cd //
-```
-
-### 2. Install Dependencies
-
-```bash
+git clone <your-repo-url> readup
+cd readup
 npm install
-# or
-yarn install
+# or: yarn install
 ```
 
 ### 3. Environment Configuration
@@ -100,99 +118,87 @@ Add your AWS API Gateway URL:
 AWS_API_URL=https://your-api-gateway-url.amazonaws.com/prod
 ```
 
-### 4. AWS Setup (Required)
-
-You need to set up the following AWS services:
-
-1. **DynamoDB Table**
-   - Table name: `Books` (or configure as needed)
-   - Primary key: `id` (Number)
-
-2. **Lambda Functions**
-   - Create CRUD operations for books
-   - Configure appropriate IAM roles
-
-3. **API Gateway**
-   - Set up REST API endpoints
-   - Configure CORS for your domain
-
-See [AWS Setup Guide](#aws-setup-detailed) for detailed instructions.
-
-### 5. Run Development Server
+### Run Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
+# or: yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Visit [http://localhost:3000](http://localhost:3000)
 
-## 🔧 Available Scripts
+---
+
+## AWS Infrastructure
+
+* **DynamoDB**: table `Books` with primary key `id` (Number or String—be consistent across API & app)
+* **Lambda**: functions for book CRUD
+* **API Gateway**: REST endpoints proxying to Lambda; enable CORS for your app origin
+* **S3**: optional storage for original images/files
+* **Cloudinary**: CDN + transformations for book cover images
+
+> Keep IAM roles least-privileged. Validate inputs at the edge (API) and in Lambdas.
+
+---
+
+## Scripts
 
 ```bash
-npm run dev      # Start development server
-npm run build    # Build production application
-npm run start    # Start production server
-npm run lint     # Run ESLint for code quality
+npm run dev       # Start dev server
+npm run build     # Production build
+npm run start     # Start production server
+npm run lint      # Lint codebase
 ```
 
-## Key Components
+---
 
-### BookCard Component
-Displays individual book information with view/edit functionality.
+## Key Modules
 
-### Header Component
-Navigation header with home link and add book button.
+* **actions/data.ts** — API integration (fetchers to AWS API Gateway)
+* **actions/actions.ts** — Server actions wrapping data access
+* **components/BookCard.tsx** — Book display with edit/delete
+* **components/Header.tsx** — Navigation with "Add Book"
+* **app/[id]/page.tsx** — Detail/edit page
+* **app/add/page.tsx** — Create new book
 
-### Server Actions
-- **getBookFromDB**: Fetch individual book data
-- **putBookInDB**: Create or update book
-- **deleteBookInDB**: Remove book from database
+---
 
 ## Deployment
 
 ### Vercel (Recommended)
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy!
+1. Push to GitHub
+2. Import repo on Vercel
+3. Configure environment variables (`AWS_API_URL`, etc.)
+4. Deploy
 
-Ensure environment variables are properly configured on your chosen platform.
+> Ensure your API Gateway allows the Vercel domain(s) via CORS.
+
+---
 
 ## Troubleshooting
 
-### Common Issues
+* **API connection fails**
+  * Verify `AWS_API_URL`
+  * Check API Gateway CORS (origins, headers, methods)
+  * Confirm Lambda deployment and permissions
+* **Build errors**
+  * Re-install deps (`npm install`)
+  * Fix TypeScript/ESLint issues
+* **Styling issues**
+  * Confirm Tailwind config and `globals.css` import
 
-1. **API Connection Failed**
-   - Verify `AWS_API_URL` is correctly set
-   - Check AWS API Gateway CORS configuration
-   - Ensure Lambda functions are deployed
-
-2. **Build Errors**
-   - Run `npm install` to ensure all dependencies are installed
-   - Check TypeScript errors with `npm run build`
-
-3. **Styling Issues**
-   - Ensure Tailwind CSS is properly configured
-   - Check for conflicting CSS classes
+---
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+1. Fork the repo
+2. Create a feature branch: `git checkout -b feat/your-feature`
+3. Commit: `git commit -m "feat: add your feature"`
+4. Push & open a Pull Request
 
-##  License
+---
 
-This project is open source and available under the [MIT License](./LICENCE).
+## License
 
-## Support
-
-If you have any questions or need help with setup, please:
-1. Check the troubleshooting section
-2. Review the AWS setup guide
-3. Open an issue on GitHub
+This project is available under the [MIT License](./LICENSE).

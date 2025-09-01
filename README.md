@@ -41,6 +41,10 @@ Backend: **AWS Lambda, API Gateway, DynamoDB, S3**, plus **Cloudinary** for imag
 - End-to-end TypeScript
 
 ---
+## Architecture Flow
+
+![Architecture Diagram](./flow.jpg)
+*System architecture showing the flow from frontend to serverless backend*
 
 ## Tech Stack
 

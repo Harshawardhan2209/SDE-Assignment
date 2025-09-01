@@ -24,9 +24,12 @@ A modern, full-stack Book Library application built with **Next.js 14**, **TypeS
 - **React Hooks** - State management
 
 ### Backend & Cloud
-- **AWS Lambda** - Serverless compute functions
-- **AWS API Gateway** - RESTful API management
-- **AWS DynamoDB** - NoSQL database
+- **AWS Lambda** - Serverless compute functions  
+- **AWS API Gateway** - RESTful API management  
+- **AWS DynamoDB** - NoSQL database  
+- **AWS S3** - Object storage for images/files  
+- **Cloudinary** - Image hosting, optimization & CDN delivery  
+
 
 ### Development Tools
 - **ESLint** - Code linting

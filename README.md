@@ -1,6 +1,6 @@
 # Readup- Full-Stack CRUD Application
 
-![Book Library]
+![Application Flow](./flow.jpg)
 
 A modern, full-stack Book Library application built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **AWS services** (DynamoDB, Lambda, API Gateway). This application demonstrates enterprise-level CRUD operations with a serverless architecture.
 
